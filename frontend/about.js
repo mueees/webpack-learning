@@ -2,6 +2,10 @@
 
 // import angular from 'angular';
 
+// This's our lib from NPM
+import webpackSimpleLibrary from 'webpack-simple-library/dist/mue';
+webpackSimpleLibrary();
+
 import welcome from './welcome';
 
 welcome('About');

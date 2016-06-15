@@ -128,8 +128,7 @@ module.exports = {
 
         // require('home')  webpack будет искать такой модуль в папках root
         root: [
-            'app2/modules',
-            'app3/modules'
+            path.join(__dirname + '/vendor')
         ],
 
         alias: {
@@ -156,11 +155,11 @@ module.exports = {
         // задает корневую папку откуда раздавать статику
         contentBase: path.join(__dirname + '/public'),
 
-        proxy: [{
-            // path: '/api/*',
-            // target: 'http://localhost:3000'
-            //bypass: function (request, response, opitons){} // write own proxy function
-        }]
+        /*proxy: [{
+         // path: '/api/!*',
+         // target: 'http://localhost:3000'
+         //bypass: function (request, response, opitons){} // write own proxy function
+         }]*/
     }
 };
 
