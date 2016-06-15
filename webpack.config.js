@@ -68,10 +68,16 @@ module.exports = {
 
             // вручную указываем entries из которых выносить общий код
             /*chunks: ['about', 'home']*/
-        })
+        }),
 
         // передает переменные окружения в код приложения, внутри себя используеь DefinePlugin
         //new webpack.EnvironmentPlugin('NODE_ENV', 'USER')
+
+        // подключает библиотеку, в коде map можно использовать как глобальную переменную
+        // подходит для глобальных модулей, по типу angular, lodash ...
+        new webpack.ProvidePlugin({
+            map: 'lodash/map'
+        })
     ],
 
     module: {
@@ -81,18 +87,40 @@ module.exports = {
             {
                 // к файлам оканчивающимся на .js надо применять loader
                 loader: "babel?presets[]=es2015",
-                exclude: __dirname + 'node_modules',
+
+                // хорошо оптимизирует сборку
+                // к примеру angular довольно большой файл и бабел его долго трансформировал
+                // но этого делать не надо, так как angular не нуждается в этом
+                exclude: /\/node_modules\//,
+
+                // можно идти от обратного, и указать те файл для которых нужен бабель
+                // include: __dirname + '/frontend',
+
                 test: /\.js$/
             }
-        ]
+        ],
+
+        // не парсить файл, не надо пытаться находить require и прочие вещи
+        // подключить как есть
+        noParse: [/angular\/angular.js/]
     },
 
     // как webpack ищет модули
     resolve: {
-        // если в качестве модуля указан только название файла, но не путьы
+        // если в качестве модуля указан только название файла, но не путь
         // к примеру 'home', то такой модуль будет искаться в папке node_modules
         modulesDirectories: ['node_modules'],
-        extensions: ['', '.js']
+        extensions: ['', '.js'],
+
+        // require('home')  webpack будет искать такой модуль в папках root
+        root: [
+            'app2/modules',
+            'app3/modules'
+        ],
+
+        alias: {
+            old: 'somefolder/old/dist'
+        }
     },
 
     // как webpack ищет loader модули
@@ -100,6 +128,12 @@ module.exports = {
         modulesDirectories: ['node_modules'],
         moduleTemplates: ['*-loader', '*'],
         extensions: ['', '.js']
+    },
+
+    externals: {
+        // мы скачали jquery с CDN, тут мы объявляем о внещнем модуле
+        // мы можем использовать $ глобально или require('jquery')
+        jquery: '$'
     }
 };
 

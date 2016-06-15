@@ -1,8 +1,17 @@
 'use strict';
 
+import angular from 'angular';
+
 import welcome from './welcome';
 
 welcome('About');
+
+angular.module('test', []);
+
+// we load jquery from cdn
+var $ = require('jquery');
+
+map([1, 2, 3]);
 
 var plugins = ['slider', 'weather'];
 
