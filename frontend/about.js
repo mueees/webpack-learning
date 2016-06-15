@@ -1,16 +1,15 @@
 'use strict';
 
-import angular from 'angular';
+// import angular from 'angular';
 
 import welcome from './welcome';
 
 welcome('About');
 
-angular.module('test', []);
-
 // we load jquery from cdn
 var $ = require('jquery');
 
+// global variable from externals webpack config
 map([1, 2, 3]);
 
 var plugins = ['slider', 'weather'];

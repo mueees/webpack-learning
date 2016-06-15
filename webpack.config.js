@@ -97,7 +97,18 @@ module.exports = {
                 // include: __dirname + '/frontend',
 
                 test: /\.js$/
+            },
+
+            {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            {
+                test: /\.(jpg|png)$/,
+                loader: 'file?name=[path][name].[ext]'
             }
+
+            // есть еще url-loader позволяет файлы меньше заданого размера, преобразовывать в data-url
         ],
 
         // не парсить файл, не надо пытаться находить require и прочие вещи
