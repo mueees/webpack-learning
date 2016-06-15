@@ -1,12 +1,15 @@
+'use strict';
+
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
+let path = require('path');
 
 // возможна мультикомпиляция, чем то похоже, если запустить несколько инстансов webpack
 // module.exports = []
 
 module.exports = {
     // поиск entry будет идти относитено этого пути
-    context: __dirname + '/frontend',
+    context: path.join(__dirname + '/frontend'),
 
     // относительные пути
     // точка входа не может быть импортирована в другие фалйы
@@ -23,7 +26,7 @@ module.exports = {
 
     output: {
         // нужно указать именно абсолютный путь
-        path: __dirname + '/public',
+        path: path.join(__dirname + '/public'),
 
         // [name] name - название entry
         filename: "[name].js",
@@ -145,6 +148,19 @@ module.exports = {
         // мы скачали jquery с CDN, тут мы объявляем о внещнем модуле
         // мы можем использовать $ глобально или require('jquery')
         jquery: '$'
+    },
+
+    devServer: {
+        host: 'localhost', // default
+        port: '8080', // default
+        // задает корневую папку откуда раздавать статику
+        contentBase: path.join(__dirname + '/public'),
+
+        proxy: [{
+            // path: '/api/*',
+            // target: 'http://localhost:3000'
+            //bypass: function (request, response, opitons){} // write own proxy function
+        }]
     }
 };
 

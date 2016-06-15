@@ -1,3 +1,1 @@
-module.exports = function () {
-    console.log('Dynamic-a plugin');
-};
+console.log('Dynamic-a plugin');

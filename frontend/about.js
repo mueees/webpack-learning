@@ -29,7 +29,11 @@ widgetsContext.keys().forEach(function (moduleName) {
     widgetsContext(moduleName);
 });
 
-/*var dynamicallyModule = 'dynamic-a.js';
- require('bundle!./dynamic-plugins/' + dynamicallyModule);*/
+setTimeout(function () {
+    console.log('Load dynamic plugin');
+
+    var dynamicallyModule = 'dynamic-a.js';
+    require('bundle!./dynamic-plugins/' + dynamicallyModule);
+}, 1000);
 
 exports.welcome = welcome;
